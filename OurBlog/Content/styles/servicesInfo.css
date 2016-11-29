@@ -1,0 +1,83 @@
+
+div, a, img, dd, dt, dl, p, span {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    border: none;
+}
+
+#servicesInfo {
+    margin-top: 10px;
+    width: 100%;
+    overflow: hidden;
+    background: #EAE0D4;
+}
+
+#servicesInfolHeader, #servicesInfoTypeLabel, #serviesInfoContent {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#servicesInfolHeader {
+    /*width:960px;*/
+    height: 67px;
+    border-bottom: 1px dotted black;
+    overflow: hidden;
+}
+
+    #servicesInfolHeader a {
+        display: block;
+        height: 67px;
+        width: 340px;
+        line-height: 67px;
+        font-size: 37px;
+        font-weight: bold;
+        color: #6F5B52;
+    }
+
+        #servicesInfolHeader a:hover {
+            color: #000000;
+        }
+
+#servicesInfoTypeLabel a {
+    display: block;
+    width: 112px;
+    height: 37px;
+    line-height: 37px;
+    text-align: center;
+    color: #BC3233;
+    background: url(../images/innerItemBg.jpg) no-repeat;
+    float: left;
+    margin-left: 20px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    #servicesInfoTypeLabel a:hover {
+        text-decoration: underline;
+    }
+
+#servicesInfoTypeLabel .activeLabel {
+    color: #fff;
+    background: url(../images/lightInnerItemBg.jpg) no-repeat;
+}
+
+#serviesInfoContent {
+    color: #000;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+    #serviesInfoContent p {
+        text-indent: 2em;
+        margin: 4px 0;
+    }
+
+    #serviesInfoContent img {
+        width: 960px;
+        height: 450px;
+    }

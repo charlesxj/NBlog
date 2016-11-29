@@ -1,0 +1,119 @@
+﻿body, div, a, span, img, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #EEEFF1;
+}
+
+#Header {
+    background-color: #2A2C2E;
+    height: 80px;
+    width: 100%;
+}
+
+#Content {
+    background-color: #EEEFF1;
+    height: 1100px;
+    width: 100%;
+}
+
+#BkHeader {
+    background-color: #2A2C2E;
+    height: 80px;
+    width: 1000px;
+    color: white;
+    overflow: hidden;
+}
+
+#BkHeader, #BkContent {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#HeaderLeft, #HeaderRight {
+    padding-top: 10px;
+    height: 80px;
+    float: left;
+}
+
+#HeaderLeft {
+    width: 400px;
+    height: 70px;
+    font-size: 28px;
+    line-height: 70px;
+    /*background: #ff6a00;*/
+    overflow: hidden;
+}
+
+#HeaderRight {
+    width: 600px;
+    text-align: right;
+    /*background: #ff6acc;*/
+    overflow: hidden;
+}
+
+#TimeShowDiv {
+    height: 35px;
+    /*background-color:#b6ff00;*/
+}
+
+#OtherInfosDiv {
+    height: 35px;
+    width: 600px;
+    line-height: 35px;
+    /*background-color: #ff6a00;*/
+    overflow: hidden;
+}
+
+    #OtherInfosDiv span {        
+        display: block;
+        height: 35px;
+        width:160px;
+        line-height: 35px;
+        margin-right: 20px;
+        float: right;
+    }
+
+        #OtherInfosDiv span a {
+            display: block;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            float: right;
+        }
+
+            #OtherInfosDiv span a img {
+                height: 35px;
+                width: 35px;
+                border: none;
+            }
+
+
+#BkContent {
+    margin-top: 10px;
+}
+
+.ulStyle {
+    list-style: none;
+}
+
+    .ulStyle li a {
+        display: block;
+        text-decoration: none;
+        font-size: 12px;
+        width: 170px;
+        height: 20px;
+        line-height: 20px;
+        padding: 5px;
+        color: #126499;
+    }
+
+        .ulStyle li a:hover {
+            background-color: #E6E6E6;
+        }
+/*.ulStyle li a:visited{
+    background-color:#CCE6FF;
+}*/

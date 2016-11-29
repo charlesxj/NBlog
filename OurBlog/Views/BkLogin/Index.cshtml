@@ -1,0 +1,118 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our-Blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1;" />
+
+    @*<link href="~/Content/login.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
+    @Styles.Render("~/Styles/bklogin")
+    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryval")
+
+    @*@section Styles{
+            @Styles.Render("~/Styles/login")
+        }
+
+        @section Scripts{
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/jqueryval")
+        }*@
+
+</head>
+<body style="padding: 10px">
+
+    <div id="login">
+        <div id="loginlogo">
+        </div>
+        <div id="loginpanel">
+            <div class="panel-h">
+            </div>
+            <div class="panel-c">
+                <div class="panel-c-l">
+                    @using (Ajax.BeginForm("BkLogin", new AjaxOptions() { OnSuccess = "afterLogin" }))
+                    {
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" colspan="2">
+                                        <h3><span style="font-weight: bold; color: Red">欢迎登陆</span></h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        账&nbsp;&nbsp;&nbsp;&nbsp;号：
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" name="LoginCode" id="LoginCode" value="admin" class="login-text" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        密&nbsp;&nbsp;&nbsp;&nbsp;码：
+                                    </td>
+                                    <td align="left">
+                                        <input type="password" name="LoginPwd" id="LoginPwd" value="admin" class="login-text" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        验证码：
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" class="login-text" id="vCode" name="vCode" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <img id="imgCode" style="float: left; height: 24px;" />
+                                        <div style="float: left; margin-left: 5px; margin-top: 10px;">
+                                            <a href="javascript:void(0)" onclick="changeCheckCode();return false;">看不清，换一张</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="submit" id="btnLogin" value="登录" class="login-btn" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <div class="panel-c-r">
+                    <p>登陆须知：</p>
+                    <p>
+                        请从左侧输入登录账号和密码登录。
+                    </p>
+                    <p>
+                        如果遇到系统问题，请联系管理员。
+                    </p>
+                    <p>
+                        如果没有账号，请联系管理员。
+                    </p>
+                    <p>
+                        未尽事宜，请与管理员联系。
+                    </p>
+                </div>
+            </div>
+            <div class="panel-f">
+            </div>
+        </div>
+        <div id="logincopyright">
+            <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#"></a></p>
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/bklogin");
+</body>
+</html>
