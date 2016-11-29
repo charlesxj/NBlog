@@ -207,6 +207,7 @@
     <Content Include="blog.edmx.diagram">
       <DependentUpon>blog.edmx</DependentUpon>
     </Content>
+    <Content Include="sql\create.sql" />
     <Content Include="Web.Config">
       <SubType>Designer</SubType>
     </Content>
