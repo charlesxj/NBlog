@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using OurBlog.Model;
 using OurBlog.IBll;
 using OurBlog.IDal;
@@ -19,18 +17,18 @@ namespace OurBlog.Bll
             this.AddDisposableObject(userRepository);
         }
 
-        public users GetUsers(string FUSERNO)
+        public user GetUsers(string FUSERNO)
         {
             Guard.ArgumentNotNullOrEmpty(FUSERNO, "FUSERNO");
             return this.UserRepository.GetUsers(FUSERNO);
         }
 
-        public IEnumerable<users> GetUsers(int pageIndex, int pageSize, out int recordCount)
+        public IEnumerable<user> GetUsers(int pageIndex, int pageSize, out int recordCount)
         {
             return this.UserRepository.GetUsers(pageIndex, pageSize, out recordCount);
         }
 
-        public IEnumerable<users> GetLoginUsers(string loginname, string loginpwd)
+        public IEnumerable<user> GetLoginUsers(string loginname, string loginpwd)
         {
             Guard.ArgumentNotNullOrEmpty(loginname, "loginname");
             Guard.ArgumentNotNullOrEmpty(loginpwd, "loginpwd");

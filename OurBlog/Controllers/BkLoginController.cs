@@ -57,7 +57,7 @@ namespace ElecSmoke.Controllers
                 return Json(new { result = "error", info = "验证码错误！" });
             }
 
-            users ckusr = this.UsersService.GetLoginUsers(name, pwd).ToList()[0];
+            user ckusr = this.UsersService.GetLoginUsers(name, pwd).ToList()[0];
             var loginUsr = "ok";
 
             if (loginUsr == null)
