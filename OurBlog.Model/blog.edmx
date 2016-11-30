@@ -5,56 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="blogModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="discussinfos">
+        <EntityType Name="discussinfo">
           <Key>
             <PropertyRef Name="FDiscussId" />
           </Key>
           <Property Name="FDiscussId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FDiscussTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FAuthorId" Type="bigint" Nullable="false" />
-          <Property Name="FParentDiscussId" Type="bigint" Nullable="false" />
+          <Property Name="FReplyCount" Type="int" Nullable="false" />
           <Property Name="FDocId" Type="bigint" Nullable="false" />
+          <Property Name="FLastReplyTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDiscussType" Type="char" MaxLength="1" />
           <Property Name="FDocText" Type="varchar" MaxLength="2000" />
         </EntityType>
-        <EntityType Name="docclassts">
+        <EntityType Name="discussreplyinfo">
           <Key>
-            <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FDocCLSID" />
+            <PropertyRef Name="FTopDiscussId" />
+            <PropertyRef Name="FDiscussLayer" />
           </Key>
-          <Property Name="FDocId" Type="bigint" Nullable="false" />
-          <Property Name="FDocCLSID" Type="int" Nullable="false" />
-          <Property Name="FRecordTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="FTopDiscussId" Type="bigint" Nullable="false" />
+          <Property Name="FDiscussLayer" Type="int" Nullable="false" />
+          <Property Name="FCreateTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FAuthorId" Type="bigint" Nullable="false" />
+          <Property Name="FReplyUserId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="docclsrelations">
-          <Key>
-            <PropertyRef Name="FLOWID" />
-          </Key>
-          <Property Name="FLOWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FDOCCLSID" Type="int" Nullable="false" />
-          <Property Name="FPARENTDOCCLSID" Type="int" Nullable="false" />
-          <Property Name="FLEVEL" Type="int" Nullable="false" />
-          <Property Name="FSTATUS" Type="char" MaxLength="2" />
-        </EntityType>
-        <EntityType Name="docclss">
-          <Key>
-            <PropertyRef Name="FDocCLSID" />
-          </Key>
-          <Property Name="FDocCLSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FCREATETIME" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FCLSNAME" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="FCLSDESCRIBE" Type="varchar" MaxLength="300" />
-        </EntityType>
-        <EntityType Name="dockeywords">
-          <Key>
-            <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FKeyWord" />
-          </Key>
-          <Property Name="FDocId" Type="bigint" Nullable="false" />
-          <Property Name="FKeyWord" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FKeySeq" Type="smallint" Nullable="false" />
-          <Property Name="FKeyScore" Type="tinyint" />
-        </EntityType>
-        <EntityType Name="docs">
+        <EntityType Name="doc">
           <Key>
             <PropertyRef Name="FDocId" />
           </Key>
@@ -71,7 +46,45 @@
           <Property Name="FDocTitle" Type="varchar" MaxLength="400" />
           <Property Name="FSubTitle" Type="varchar" MaxLength="400" />
         </EntityType>
-        <EntityType Name="docstatinfos">
+        <EntityType Name="docclass">
+          <Key>
+            <PropertyRef Name="FDocId" />
+            <PropertyRef Name="FDocCLSID" />
+          </Key>
+          <Property Name="FDocId" Type="bigint" Nullable="false" />
+          <Property Name="FDocCLSID" Type="int" Nullable="false" />
+          <Property Name="FRecordTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="doccls">
+          <Key>
+            <PropertyRef Name="FDocCLSID" />
+          </Key>
+          <Property Name="FDocCLSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FCREATETIME" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FCLSNAME" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="FCLSDESCRIBE" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="docclsrelation">
+          <Key>
+            <PropertyRef Name="FLOWID" />
+          </Key>
+          <Property Name="FLOWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDOCCLSID" Type="int" Nullable="false" />
+          <Property Name="FPARENTDOCCLSID" Type="int" Nullable="false" />
+          <Property Name="FLEVEL" Type="int" Nullable="false" />
+          <Property Name="FSTATUS" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="dockeyword">
+          <Key>
+            <PropertyRef Name="FDocId" />
+            <PropertyRef Name="FKeyWord" />
+          </Key>
+          <Property Name="FDocId" Type="bigint" Nullable="false" />
+          <Property Name="FKeyWord" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FKeySeq" Type="smallint" Nullable="false" />
+          <Property Name="FKeyScore" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="docstatinfo">
           <Key>
             <PropertyRef Name="FDocId" />
           </Key>
@@ -82,18 +95,14 @@
           <Property Name="FReadCount" Type="int" Nullable="false" />
           <Property Name="FLastReadTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="docstores">
+        <EntityType Name="docstore">
           <Key>
             <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FDocSegNo" />
           </Key>
           <Property Name="FDocId" Type="bigint" Nullable="false" />
-          <Property Name="FDocSegNo" Type="int" Nullable="false" />
-          <Property Name="FDocSegLength" Type="smallint" Nullable="false" />
-          <Property Name="FDocRecordTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FDocSegText" Type="varchar" MaxLength="15600" />
+          <Property Name="FDocText" Type="longtext" />
         </EntityType>
-        <EntityType Name="docwritetimeorders">
+        <EntityType Name="docwritetimeorder">
           <Key>
             <PropertyRef Name="FID" />
           </Key>
@@ -103,7 +112,7 @@
           <Property Name="FAuthorId" Type="bigint" Nullable="false" />
           <Property Name="FDocClsId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="filemaps">
+        <EntityType Name="filemap">
           <Key>
             <PropertyRef Name="FLOWID" />
           </Key>
@@ -115,7 +124,28 @@
           <Property Name="FCREATETIME" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FFOLDERPATH" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="menus">
+        <EntityType Name="foldermap">
+          <Key>
+            <PropertyRef Name="FFolderId" />
+          </Key>
+          <Property Name="FFolderId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FParentFolderId" Type="bigint" Nullable="false" />
+          <Property Name="FFileCount" Type="int" Nullable="false" />
+          <Property Name="FFolderPath" Type="varchar" MaxLength="2000" />
+          <Property Name="FFolderCreateTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FLastAccessTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FModifyTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FFolderName" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="folderrelationmap">
+          <Key>
+            <PropertyRef Name="FTopFolderId" />
+            <PropertyRef Name="FChildFoldId" />
+          </Key>
+          <Property Name="FTopFolderId" Type="bigint" Nullable="false" />
+          <Property Name="FChildFoldId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menu">
           <Key>
             <PropertyRef Name="FMENUID" />
           </Key>
@@ -127,15 +157,7 @@
           <Property Name="FMENUSTATUS" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="FCREATETIME" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="roleauthrights">
-          <Key>
-            <PropertyRef Name="FLOWID" />
-          </Key>
-          <Property Name="FLOWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FROLEID" Type="int" Nullable="false" />
-          <Property Name="FMENUID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="roles">
+        <EntityType Name="role">
           <Key>
             <PropertyRef Name="FROLEID" />
           </Key>
@@ -144,17 +166,15 @@
           <Property Name="FROLEDESC" Type="varchar" MaxLength="100" />
           <Property Name="FROLEFLAG" Type="char" MaxLength="1" />
         </EntityType>
-        <EntityType Name="userroles">
+        <EntityType Name="roleauthright">
           <Key>
-            <PropertyRef Name="FUSERID" />
-            <PropertyRef Name="FROLEID" />
+            <PropertyRef Name="FLOWID" />
           </Key>
-          <Property Name="FUSERID" Type="bigint" Nullable="false" />
+          <Property Name="FLOWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FROLEID" Type="int" Nullable="false" />
-          <Property Name="FSTATUS" Type="char" MaxLength="1" />
-          <Property Name="FDESCRIBE" Type="varchar" MaxLength="100" />
+          <Property Name="FMENUID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="users">
+        <EntityType Name="user">
           <Key>
             <PropertyRef Name="FUSERID" />
           </Key>
@@ -173,7 +193,17 @@
           <Property Name="FUSERTELNO" Type="varchar" MaxLength="20" />
           <Property Name="FPASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <EntityType Name="userselfsettings">
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="FUSERID" />
+            <PropertyRef Name="FROLEID" />
+          </Key>
+          <Property Name="FUSERID" Type="bigint" Nullable="false" />
+          <Property Name="FROLEID" Type="int" Nullable="false" />
+          <Property Name="FSTATUS" Type="char" MaxLength="1" />
+          <Property Name="FDESCRIBE" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="userselfsetting">
           <Key>
             <PropertyRef Name="FUserId" />
             <PropertyRef Name="FSettingNo" />
@@ -183,7 +213,7 @@
           <Property Name="FSettingDesc" Type="varchar" MaxLength="200" />
           <Property Name="FSettingValue" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="userthirdnomaps">
+        <EntityType Name="userthirdnomap">
           <Key>
             <PropertyRef Name="FOtherNo" />
             <PropertyRef Name="FOtherNoType" />
@@ -195,79 +225,57 @@
           <Property Name="FUserId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityContainer Name="blogModelStoreContainer">
-          <EntitySet Name="discussinfos" EntityType="Self.discussinfos" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docclassts" EntityType="Self.docclassts" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docclsrelations" EntityType="Self.docclsrelations" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docclss" EntityType="Self.docclss" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="dockeywords" EntityType="Self.dockeywords" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docs" EntityType="Self.docs" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docstatinfos" EntityType="Self.docstatinfos" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docstores" EntityType="Self.docstores" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="docwritetimeorders" EntityType="Self.docwritetimeorders" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="filemaps" EntityType="Self.filemaps" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="menus" EntityType="Self.menus" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="roleauthrights" EntityType="Self.roleauthrights" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="roles" EntityType="Self.roles" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="userroles" EntityType="Self.userroles" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="userselfsettings" EntityType="Self.userselfsettings" Schema="blog" store:Type="Tables" />
-          <EntitySet Name="userthirdnomaps" EntityType="Self.userthirdnomaps" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="discussinfo" EntityType="Self.discussinfo" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="discussreplyinfo" EntityType="Self.discussreplyinfo" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="doc" EntityType="Self.doc" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="docclass" EntityType="Self.docclass" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="doccls" EntityType="Self.doccls" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="docclsrelation" EntityType="Self.docclsrelation" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="dockeyword" EntityType="Self.dockeyword" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="docstatinfo" EntityType="Self.docstatinfo" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="docstore" EntityType="Self.docstore" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="docwritetimeorder" EntityType="Self.docwritetimeorder" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="filemap" EntityType="Self.filemap" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="foldermap" EntityType="Self.foldermap" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="folderrelationmap" EntityType="Self.folderrelationmap" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="menu" EntityType="Self.menu" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="roleauthright" EntityType="Self.roleauthright" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="userrole" EntityType="Self.userrole" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="userselfsetting" EntityType="Self.userselfsetting" Schema="blog" store:Type="Tables" />
+          <EntitySet Name="userthirdnomap" EntityType="Self.userthirdnomap" Schema="blog" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="blogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="discussinfos">
+        <EntityType Name="discussinfo">
           <Key>
             <PropertyRef Name="FDiscussId" />
           </Key>
           <Property Name="FDiscussId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FDiscussTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FAuthorId" Type="Int64" Nullable="false" />
-          <Property Name="FParentDiscussId" Type="Int64" Nullable="false" />
+          <Property Name="FReplyCount" Type="Int32" Nullable="false" />
           <Property Name="FDocId" Type="Int64" Nullable="false" />
+          <Property Name="FLastReplyTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDiscussType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="FDocText" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="docclassts">
+        <EntityType Name="discussreplyinfo">
           <Key>
-            <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FDocCLSID" />
+            <PropertyRef Name="FTopDiscussId" />
+            <PropertyRef Name="FDiscussLayer" />
           </Key>
-          <Property Name="FDocId" Type="Int64" Nullable="false" />
-          <Property Name="FDocCLSID" Type="Int32" Nullable="false" />
-          <Property Name="FRecordTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FTopDiscussId" Type="Int64" Nullable="false" />
+          <Property Name="FDiscussLayer" Type="Int32" Nullable="false" />
+          <Property Name="FCreateTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FAuthorId" Type="Int64" Nullable="false" />
+          <Property Name="FReplyUserId" Type="Int64" Nullable="false" />
         </EntityType>
-        <EntityType Name="docclsrelations">
-          <Key>
-            <PropertyRef Name="FLOWID" />
-          </Key>
-          <Property Name="FLOWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FDOCCLSID" Type="Int32" Nullable="false" />
-          <Property Name="FPARENTDOCCLSID" Type="Int32" Nullable="false" />
-          <Property Name="FLEVEL" Type="Int32" Nullable="false" />
-          <Property Name="FSTATUS" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="docclss">
-          <Key>
-            <PropertyRef Name="FDocCLSID" />
-          </Key>
-          <Property Name="FDocCLSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FCREATETIME" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FCLSNAME" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FCLSDESCRIBE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="dockeywords">
-          <Key>
-            <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FKeyWord" />
-          </Key>
-          <Property Name="FDocId" Type="Int64" Nullable="false" />
-          <Property Name="FKeyWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FKeySeq" Type="Int16" Nullable="false" />
-          <Property Name="FKeyScore" Type="SByte" />
-        </EntityType>
-        <EntityType Name="docs">
+        <EntityType Name="doc">
           <Key>
             <PropertyRef Name="FDocId" />
           </Key>
@@ -284,7 +292,45 @@
           <Property Name="FDocTitle" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="FSubTitle" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="docstatinfos">
+        <EntityType Name="docclass">
+          <Key>
+            <PropertyRef Name="FDocId" />
+            <PropertyRef Name="FDocCLSID" />
+          </Key>
+          <Property Name="FDocId" Type="Int64" Nullable="false" />
+          <Property Name="FDocCLSID" Type="Int32" Nullable="false" />
+          <Property Name="FRecordTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="doccls">
+          <Key>
+            <PropertyRef Name="FDocCLSID" />
+          </Key>
+          <Property Name="FDocCLSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FCREATETIME" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FCLSNAME" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FCLSDESCRIBE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="docclsrelation">
+          <Key>
+            <PropertyRef Name="FLOWID" />
+          </Key>
+          <Property Name="FLOWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDOCCLSID" Type="Int32" Nullable="false" />
+          <Property Name="FPARENTDOCCLSID" Type="Int32" Nullable="false" />
+          <Property Name="FLEVEL" Type="Int32" Nullable="false" />
+          <Property Name="FSTATUS" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="dockeyword">
+          <Key>
+            <PropertyRef Name="FDocId" />
+            <PropertyRef Name="FKeyWord" />
+          </Key>
+          <Property Name="FDocId" Type="Int64" Nullable="false" />
+          <Property Name="FKeyWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FKeySeq" Type="Int16" Nullable="false" />
+          <Property Name="FKeyScore" Type="SByte" />
+        </EntityType>
+        <EntityType Name="docstatinfo">
           <Key>
             <PropertyRef Name="FDocId" />
           </Key>
@@ -295,18 +341,14 @@
           <Property Name="FReadCount" Type="Int32" Nullable="false" />
           <Property Name="FLastReadTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="docstores">
+        <EntityType Name="docstore">
           <Key>
             <PropertyRef Name="FDocId" />
-            <PropertyRef Name="FDocSegNo" />
           </Key>
           <Property Name="FDocId" Type="Int64" Nullable="false" />
-          <Property Name="FDocSegNo" Type="Int32" Nullable="false" />
-          <Property Name="FDocSegLength" Type="Int16" Nullable="false" />
-          <Property Name="FDocRecordTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FDocSegText" Type="String" MaxLength="15600" FixedLength="false" Unicode="false" />
+          <Property Name="FDocText" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="docwritetimeorders">
+        <EntityType Name="docwritetimeorder">
           <Key>
             <PropertyRef Name="FID" />
           </Key>
@@ -316,7 +358,7 @@
           <Property Name="FAuthorId" Type="Int64" Nullable="false" />
           <Property Name="FDocClsId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="filemaps">
+        <EntityType Name="filemap">
           <Key>
             <PropertyRef Name="FLOWID" />
           </Key>
@@ -328,7 +370,28 @@
           <Property Name="FCREATETIME" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FFOLDERPATH" Type="Int64" Nullable="false" />
         </EntityType>
-        <EntityType Name="menus">
+        <EntityType Name="foldermap">
+          <Key>
+            <PropertyRef Name="FFolderId" />
+          </Key>
+          <Property Name="FFolderId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FParentFolderId" Type="Int64" Nullable="false" />
+          <Property Name="FFileCount" Type="Int32" Nullable="false" />
+          <Property Name="FFolderPath" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="FFolderCreateTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FLastAccessTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FModifyTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FFolderName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="folderrelationmap">
+          <Key>
+            <PropertyRef Name="FTopFolderId" />
+            <PropertyRef Name="FChildFoldId" />
+          </Key>
+          <Property Name="FTopFolderId" Type="Int64" Nullable="false" />
+          <Property Name="FChildFoldId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menu">
           <Key>
             <PropertyRef Name="FMENUID" />
           </Key>
@@ -340,15 +403,7 @@
           <Property Name="FMENUSTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FCREATETIME" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="roleauthrights">
-          <Key>
-            <PropertyRef Name="FLOWID" />
-          </Key>
-          <Property Name="FLOWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FROLEID" Type="Int32" Nullable="false" />
-          <Property Name="FMENUID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="roles">
+        <EntityType Name="role">
           <Key>
             <PropertyRef Name="FROLEID" />
           </Key>
@@ -357,17 +412,15 @@
           <Property Name="FROLEDESC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FROLEFLAG" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="userroles">
+        <EntityType Name="roleauthright">
           <Key>
-            <PropertyRef Name="FUSERID" />
-            <PropertyRef Name="FROLEID" />
+            <PropertyRef Name="FLOWID" />
           </Key>
-          <Property Name="FUSERID" Type="Int64" Nullable="false" />
+          <Property Name="FLOWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FROLEID" Type="Int32" Nullable="false" />
-          <Property Name="FSTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="FDESCRIBE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FMENUID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="users">
+        <EntityType Name="user">
           <Key>
             <PropertyRef Name="FUSERID" />
           </Key>
@@ -386,7 +439,17 @@
           <Property Name="FUSERTELNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FPASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="userselfsettings">
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="FUSERID" />
+            <PropertyRef Name="FROLEID" />
+          </Key>
+          <Property Name="FUSERID" Type="Int64" Nullable="false" />
+          <Property Name="FROLEID" Type="Int32" Nullable="false" />
+          <Property Name="FSTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FDESCRIBE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="userselfsetting">
           <Key>
             <PropertyRef Name="FUserId" />
             <PropertyRef Name="FSettingNo" />
@@ -396,7 +459,7 @@
           <Property Name="FSettingDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="FSettingValue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="userthirdnomaps">
+        <EntityType Name="userthirdnomap">
           <Key>
             <PropertyRef Name="FOtherNo" />
             <PropertyRef Name="FOtherNoType" />
@@ -408,23 +471,26 @@
           <Property Name="FUserId" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityContainer Name="blogEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="discussinfos" EntityType="Self.discussinfos" />
-          <EntitySet Name="docclassts" EntityType="Self.docclassts" />
-          <EntitySet Name="docclsrelations" EntityType="Self.docclsrelations" />
-          <EntitySet Name="docclss" EntityType="Self.docclss" />
-          <EntitySet Name="dockeywords" EntityType="Self.dockeywords" />
-          <EntitySet Name="docs" EntityType="Self.docs" />
-          <EntitySet Name="docstatinfos" EntityType="Self.docstatinfos" />
-          <EntitySet Name="docstores" EntityType="Self.docstores" />
-          <EntitySet Name="docwritetimeorders" EntityType="Self.docwritetimeorders" />
-          <EntitySet Name="filemaps" EntityType="Self.filemaps" />
-          <EntitySet Name="menus" EntityType="Self.menus" />
-          <EntitySet Name="roleauthrights" EntityType="Self.roleauthrights" />
-          <EntitySet Name="roles" EntityType="Self.roles" />
-          <EntitySet Name="userroles" EntityType="Self.userroles" />
-          <EntitySet Name="users" EntityType="Self.users" />
-          <EntitySet Name="userselfsettings" EntityType="Self.userselfsettings" />
-          <EntitySet Name="userthirdnomaps" EntityType="Self.userthirdnomaps" />
+          <EntitySet Name="discussinfo" EntityType="Self.discussinfo" />
+          <EntitySet Name="discussreplyinfo" EntityType="Self.discussreplyinfo" />
+          <EntitySet Name="doc" EntityType="Self.doc" />
+          <EntitySet Name="docclass" EntityType="Self.docclass" />
+          <EntitySet Name="doccls" EntityType="Self.doccls" />
+          <EntitySet Name="docclsrelation" EntityType="Self.docclsrelation" />
+          <EntitySet Name="dockeyword" EntityType="Self.dockeyword" />
+          <EntitySet Name="docstatinfo" EntityType="Self.docstatinfo" />
+          <EntitySet Name="docstore" EntityType="Self.docstore" />
+          <EntitySet Name="docwritetimeorder" EntityType="Self.docwritetimeorder" />
+          <EntitySet Name="filemap" EntityType="Self.filemap" />
+          <EntitySet Name="foldermap" EntityType="Self.foldermap" />
+          <EntitySet Name="folderrelationmap" EntityType="Self.folderrelationmap" />
+          <EntitySet Name="menu" EntityType="Self.menu" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="roleauthright" EntityType="Self.roleauthright" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="userrole" EntityType="Self.userrole" />
+          <EntitySet Name="userselfsetting" EntityType="Self.userselfsetting" />
+          <EntitySet Name="userthirdnomap" EntityType="Self.userthirdnomap" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -432,61 +498,34 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="blogModelStoreContainer" CdmEntityContainer="blogEntities">
-          <EntitySetMapping Name="discussinfos">
-            <EntityTypeMapping TypeName="blogModel.discussinfos">
-              <MappingFragment StoreEntitySet="discussinfos">
+          <EntitySetMapping Name="discussinfo">
+            <EntityTypeMapping TypeName="blogModel.discussinfo">
+              <MappingFragment StoreEntitySet="discussinfo">
                 <ScalarProperty Name="FDiscussId" ColumnName="FDiscussId" />
                 <ScalarProperty Name="FDiscussTime" ColumnName="FDiscussTime" />
                 <ScalarProperty Name="FAuthorId" ColumnName="FAuthorId" />
-                <ScalarProperty Name="FParentDiscussId" ColumnName="FParentDiscussId" />
+                <ScalarProperty Name="FReplyCount" ColumnName="FReplyCount" />
                 <ScalarProperty Name="FDocId" ColumnName="FDocId" />
+                <ScalarProperty Name="FLastReplyTime" ColumnName="FLastReplyTime" />
+                <ScalarProperty Name="FDiscussType" ColumnName="FDiscussType" />
                 <ScalarProperty Name="FDocText" ColumnName="FDocText" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="docclassts">
-            <EntityTypeMapping TypeName="blogModel.docclassts">
-              <MappingFragment StoreEntitySet="docclassts">
-                <ScalarProperty Name="FDocId" ColumnName="FDocId" />
-                <ScalarProperty Name="FDocCLSID" ColumnName="FDocCLSID" />
-                <ScalarProperty Name="FRecordTime" ColumnName="FRecordTime" />
+          <EntitySetMapping Name="discussreplyinfo">
+            <EntityTypeMapping TypeName="blogModel.discussreplyinfo">
+              <MappingFragment StoreEntitySet="discussreplyinfo">
+                <ScalarProperty Name="FTopDiscussId" ColumnName="FTopDiscussId" />
+                <ScalarProperty Name="FDiscussLayer" ColumnName="FDiscussLayer" />
+                <ScalarProperty Name="FCreateTime" ColumnName="FCreateTime" />
+                <ScalarProperty Name="FAuthorId" ColumnName="FAuthorId" />
+                <ScalarProperty Name="FReplyUserId" ColumnName="FReplyUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="docclsrelations">
-            <EntityTypeMapping TypeName="blogModel.docclsrelations">
-              <MappingFragment StoreEntitySet="docclsrelations">
-                <ScalarProperty Name="FLOWID" ColumnName="FLOWID" />
-                <ScalarProperty Name="FDOCCLSID" ColumnName="FDOCCLSID" />
-                <ScalarProperty Name="FPARENTDOCCLSID" ColumnName="FPARENTDOCCLSID" />
-                <ScalarProperty Name="FLEVEL" ColumnName="FLEVEL" />
-                <ScalarProperty Name="FSTATUS" ColumnName="FSTATUS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="docclss">
-            <EntityTypeMapping TypeName="blogModel.docclss">
-              <MappingFragment StoreEntitySet="docclss">
-                <ScalarProperty Name="FDocCLSID" ColumnName="FDocCLSID" />
-                <ScalarProperty Name="FCREATETIME" ColumnName="FCREATETIME" />
-                <ScalarProperty Name="FCLSNAME" ColumnName="FCLSNAME" />
-                <ScalarProperty Name="FCLSDESCRIBE" ColumnName="FCLSDESCRIBE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dockeywords">
-            <EntityTypeMapping TypeName="blogModel.dockeywords">
-              <MappingFragment StoreEntitySet="dockeywords">
-                <ScalarProperty Name="FDocId" ColumnName="FDocId" />
-                <ScalarProperty Name="FKeyWord" ColumnName="FKeyWord" />
-                <ScalarProperty Name="FKeySeq" ColumnName="FKeySeq" />
-                <ScalarProperty Name="FKeyScore" ColumnName="FKeyScore" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="docs">
-            <EntityTypeMapping TypeName="blogModel.docs">
-              <MappingFragment StoreEntitySet="docs">
+          <EntitySetMapping Name="doc">
+            <EntityTypeMapping TypeName="blogModel.doc">
+              <MappingFragment StoreEntitySet="doc">
                 <ScalarProperty Name="FDocId" ColumnName="FDocId" />
                 <ScalarProperty Name="FDocCreateTime" ColumnName="FDocCreateTime" />
                 <ScalarProperty Name="FDocModifyTime" ColumnName="FDocModifyTime" />
@@ -502,9 +541,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="docstatinfos">
-            <EntityTypeMapping TypeName="blogModel.docstatinfos">
-              <MappingFragment StoreEntitySet="docstatinfos">
+          <EntitySetMapping Name="docclass">
+            <EntityTypeMapping TypeName="blogModel.docclass">
+              <MappingFragment StoreEntitySet="docclass">
+                <ScalarProperty Name="FDocId" ColumnName="FDocId" />
+                <ScalarProperty Name="FDocCLSID" ColumnName="FDocCLSID" />
+                <ScalarProperty Name="FRecordTime" ColumnName="FRecordTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doccls">
+            <EntityTypeMapping TypeName="blogModel.doccls">
+              <MappingFragment StoreEntitySet="doccls">
+                <ScalarProperty Name="FDocCLSID" ColumnName="FDocCLSID" />
+                <ScalarProperty Name="FCREATETIME" ColumnName="FCREATETIME" />
+                <ScalarProperty Name="FCLSNAME" ColumnName="FCLSNAME" />
+                <ScalarProperty Name="FCLSDESCRIBE" ColumnName="FCLSDESCRIBE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docclsrelation">
+            <EntityTypeMapping TypeName="blogModel.docclsrelation">
+              <MappingFragment StoreEntitySet="docclsrelation">
+                <ScalarProperty Name="FLOWID" ColumnName="FLOWID" />
+                <ScalarProperty Name="FDOCCLSID" ColumnName="FDOCCLSID" />
+                <ScalarProperty Name="FPARENTDOCCLSID" ColumnName="FPARENTDOCCLSID" />
+                <ScalarProperty Name="FLEVEL" ColumnName="FLEVEL" />
+                <ScalarProperty Name="FSTATUS" ColumnName="FSTATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dockeyword">
+            <EntityTypeMapping TypeName="blogModel.dockeyword">
+              <MappingFragment StoreEntitySet="dockeyword">
+                <ScalarProperty Name="FDocId" ColumnName="FDocId" />
+                <ScalarProperty Name="FKeyWord" ColumnName="FKeyWord" />
+                <ScalarProperty Name="FKeySeq" ColumnName="FKeySeq" />
+                <ScalarProperty Name="FKeyScore" ColumnName="FKeyScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docstatinfo">
+            <EntityTypeMapping TypeName="blogModel.docstatinfo">
+              <MappingFragment StoreEntitySet="docstatinfo">
                 <ScalarProperty Name="FDocId" ColumnName="FDocId" />
                 <ScalarProperty Name="FLastAccessTime" ColumnName="FLastAccessTime" />
                 <ScalarProperty Name="FDiscussCount" ColumnName="FDiscussCount" />
@@ -514,20 +593,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="docstores">
-            <EntityTypeMapping TypeName="blogModel.docstores">
-              <MappingFragment StoreEntitySet="docstores">
+          <EntitySetMapping Name="docstore">
+            <EntityTypeMapping TypeName="blogModel.docstore">
+              <MappingFragment StoreEntitySet="docstore">
                 <ScalarProperty Name="FDocId" ColumnName="FDocId" />
-                <ScalarProperty Name="FDocSegNo" ColumnName="FDocSegNo" />
-                <ScalarProperty Name="FDocSegLength" ColumnName="FDocSegLength" />
-                <ScalarProperty Name="FDocRecordTime" ColumnName="FDocRecordTime" />
-                <ScalarProperty Name="FDocSegText" ColumnName="FDocSegText" />
+                <ScalarProperty Name="FDocText" ColumnName="FDocText" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="docwritetimeorders">
-            <EntityTypeMapping TypeName="blogModel.docwritetimeorders">
-              <MappingFragment StoreEntitySet="docwritetimeorders">
+          <EntitySetMapping Name="docwritetimeorder">
+            <EntityTypeMapping TypeName="blogModel.docwritetimeorder">
+              <MappingFragment StoreEntitySet="docwritetimeorder">
                 <ScalarProperty Name="FID" ColumnName="FID" />
                 <ScalarProperty Name="FDocWriteTime" ColumnName="FDocWriteTime" />
                 <ScalarProperty Name="FDocId" ColumnName="FDocId" />
@@ -536,9 +612,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="filemaps">
-            <EntityTypeMapping TypeName="blogModel.filemaps">
-              <MappingFragment StoreEntitySet="filemaps">
+          <EntitySetMapping Name="filemap">
+            <EntityTypeMapping TypeName="blogModel.filemap">
+              <MappingFragment StoreEntitySet="filemap">
                 <ScalarProperty Name="FLOWID" ColumnName="FLOWID" />
                 <ScalarProperty Name="FRELATEURL" ColumnName="FRELATEURL" />
                 <ScalarProperty Name="FFILENAME" ColumnName="FFILENAME" />
@@ -549,9 +625,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="menus">
-            <EntityTypeMapping TypeName="blogModel.menus">
-              <MappingFragment StoreEntitySet="menus">
+          <EntitySetMapping Name="foldermap">
+            <EntityTypeMapping TypeName="blogModel.foldermap">
+              <MappingFragment StoreEntitySet="foldermap">
+                <ScalarProperty Name="FFolderId" ColumnName="FFolderId" />
+                <ScalarProperty Name="FParentFolderId" ColumnName="FParentFolderId" />
+                <ScalarProperty Name="FFileCount" ColumnName="FFileCount" />
+                <ScalarProperty Name="FFolderPath" ColumnName="FFolderPath" />
+                <ScalarProperty Name="FFolderCreateTime" ColumnName="FFolderCreateTime" />
+                <ScalarProperty Name="FLastAccessTime" ColumnName="FLastAccessTime" />
+                <ScalarProperty Name="FModifyTime" ColumnName="FModifyTime" />
+                <ScalarProperty Name="FFolderName" ColumnName="FFolderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="folderrelationmap">
+            <EntityTypeMapping TypeName="blogModel.folderrelationmap">
+              <MappingFragment StoreEntitySet="folderrelationmap">
+                <ScalarProperty Name="FTopFolderId" ColumnName="FTopFolderId" />
+                <ScalarProperty Name="FChildFoldId" ColumnName="FChildFoldId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menu">
+            <EntityTypeMapping TypeName="blogModel.menu">
+              <MappingFragment StoreEntitySet="menu">
                 <ScalarProperty Name="FMENUID" ColumnName="FMENUID" />
                 <ScalarProperty Name="FParentMenuId" ColumnName="FParentMenuId" />
                 <ScalarProperty Name="FMENUNAME" ColumnName="FMENUNAME" />
@@ -562,18 +660,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="roleauthrights">
-            <EntityTypeMapping TypeName="blogModel.roleauthrights">
-              <MappingFragment StoreEntitySet="roleauthrights">
-                <ScalarProperty Name="FLOWID" ColumnName="FLOWID" />
-                <ScalarProperty Name="FROLEID" ColumnName="FROLEID" />
-                <ScalarProperty Name="FMENUID" ColumnName="FMENUID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="roles">
-            <EntityTypeMapping TypeName="blogModel.roles">
-              <MappingFragment StoreEntitySet="roles">
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="blogModel.role">
+              <MappingFragment StoreEntitySet="role">
                 <ScalarProperty Name="FROLEID" ColumnName="FROLEID" />
                 <ScalarProperty Name="FROLENAME" ColumnName="FROLENAME" />
                 <ScalarProperty Name="FROLEDESC" ColumnName="FROLEDESC" />
@@ -581,19 +670,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="userroles">
-            <EntityTypeMapping TypeName="blogModel.userroles">
-              <MappingFragment StoreEntitySet="userroles">
-                <ScalarProperty Name="FUSERID" ColumnName="FUSERID" />
+          <EntitySetMapping Name="roleauthright">
+            <EntityTypeMapping TypeName="blogModel.roleauthright">
+              <MappingFragment StoreEntitySet="roleauthright">
+                <ScalarProperty Name="FLOWID" ColumnName="FLOWID" />
                 <ScalarProperty Name="FROLEID" ColumnName="FROLEID" />
-                <ScalarProperty Name="FSTATUS" ColumnName="FSTATUS" />
-                <ScalarProperty Name="FDESCRIBE" ColumnName="FDESCRIBE" />
+                <ScalarProperty Name="FMENUID" ColumnName="FMENUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="blogModel.users">
-              <MappingFragment StoreEntitySet="users">
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="blogModel.user">
+              <MappingFragment StoreEntitySet="user">
                 <ScalarProperty Name="FUSERID" ColumnName="FUSERID" />
                 <ScalarProperty Name="FUSERNO" ColumnName="FUSERNO" />
                 <ScalarProperty Name="FUSERNAME" ColumnName="FUSERNAME" />
@@ -611,9 +699,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="userselfsettings">
-            <EntityTypeMapping TypeName="blogModel.userselfsettings">
-              <MappingFragment StoreEntitySet="userselfsettings">
+          <EntitySetMapping Name="userrole">
+            <EntityTypeMapping TypeName="blogModel.userrole">
+              <MappingFragment StoreEntitySet="userrole">
+                <ScalarProperty Name="FUSERID" ColumnName="FUSERID" />
+                <ScalarProperty Name="FROLEID" ColumnName="FROLEID" />
+                <ScalarProperty Name="FSTATUS" ColumnName="FSTATUS" />
+                <ScalarProperty Name="FDESCRIBE" ColumnName="FDESCRIBE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userselfsetting">
+            <EntityTypeMapping TypeName="blogModel.userselfsetting">
+              <MappingFragment StoreEntitySet="userselfsetting">
                 <ScalarProperty Name="FUserId" ColumnName="FUserId" />
                 <ScalarProperty Name="FSettingNo" ColumnName="FSettingNo" />
                 <ScalarProperty Name="FSettingDesc" ColumnName="FSettingDesc" />
@@ -621,9 +719,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="userthirdnomaps">
-            <EntityTypeMapping TypeName="blogModel.userthirdnomaps">
-              <MappingFragment StoreEntitySet="userthirdnomaps">
+          <EntitySetMapping Name="userthirdnomap">
+            <EntityTypeMapping TypeName="blogModel.userthirdnomap">
+              <MappingFragment StoreEntitySet="userthirdnomap">
                 <ScalarProperty Name="FOtherNo" ColumnName="FOtherNo" />
                 <ScalarProperty Name="FOtherNoDesc" ColumnName="FOtherNoDesc" />
                 <ScalarProperty Name="FOtherNoType" ColumnName="FOtherNoType" />
@@ -649,7 +747,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

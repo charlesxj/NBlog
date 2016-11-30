@@ -8,26 +8,26 @@ using OurBlog.IDal;
 
 namespace OurBlog.Dal
 {
-    public class UserRepository : OurBlogRepository<users>, IUserRepository
+    public class UserRepository : OurBlogRepository<user>, IUserRepository
     {
         public UserRepository(blogEntities context) : base(context)
         {
         }
 
-        public users GetUsers(string FUSERNO)
+        public user GetUsers(string FUSERNO)
         {
             Guard.ArgumentNotNullOrEmpty(FUSERNO, "FUSERNO");
             return this.Get(p => p.FUSERNO == FUSERNO).FirstOrDefault();
         }
 
-        public IEnumerable<users> GetUsers(int pageIndex, int pageSize, out int recordCount)
+        public IEnumerable<user> GetUsers(int pageIndex, int pageSize, out int recordCount)
         {
             recordCount = this.DbSet.Count();
             return this.Get(p => true, pageIndex, pageSize, p => p.FUSERREGTIME, false);
         }
 
         //获取登录用户列表
-        IEnumerable<users> IUserRepository.GetLoginUsers(string loginname, string loginpw)
+        IEnumerable<user> IUserRepository.GetLoginUsers(string loginname, string loginpw)
         {
             Guard.ArgumentNotNullOrEmpty(loginname, "loginname");
             Guard.ArgumentNotNullOrEmpty(loginpw, "loginpw");
