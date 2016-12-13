@@ -12,11 +12,13 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class discussinfos
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
-        public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
+        public long FDiscussId { get; set; }
+        public System.DateTime FDiscussTime { get; set; }
+        public long FAuthorId { get; set; }
+        public long FParentDiscussId { get; set; }
+        public long FDocId { get; set; }
+        public string FDocText { get; set; }
     }
 }

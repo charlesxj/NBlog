@@ -12,11 +12,12 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class docstores
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
-        public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
+        public long FDocId { get; set; }
+        public int FDocSegNo { get; set; }
+        public short FDocSegLength { get; set; }
+        public System.DateTime FDocRecordTime { get; set; }
+        public string FDocSegText { get; set; }
     }
 }

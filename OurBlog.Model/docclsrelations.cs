@@ -12,11 +12,12 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class docclsrelations
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
+        public int FLOWID { get; set; }
+        public int FDOCCLSID { get; set; }
+        public int FPARENTDOCCLSID { get; set; }
+        public int FLEVEL { get; set; }
         public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
     }
 }

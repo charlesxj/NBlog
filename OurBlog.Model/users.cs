@@ -12,7 +12,7 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class users
     {
         public long FUSERID { get; set; }
         public string FUSERNO { get; set; }

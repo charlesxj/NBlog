@@ -12,7 +12,7 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class userroles
     {
         public long FUSERID { get; set; }
         public int FROLEID { get; set; }

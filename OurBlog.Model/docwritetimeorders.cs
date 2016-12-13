@@ -12,11 +12,12 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class docwritetimeorders
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
-        public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
+        public long FID { get; set; }
+        public System.DateTime FDocWriteTime { get; set; }
+        public long FDocId { get; set; }
+        public long FAuthorId { get; set; }
+        public int FDocClsId { get; set; }
     }
 }

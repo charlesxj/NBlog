@@ -12,11 +12,14 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class filemaps
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
-        public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
+        public long FLOWID { get; set; }
+        public string FRELATEURL { get; set; }
+        public string FFILENAME { get; set; }
+        public string FFILEEXTEND { get; set; }
+        public int FFILETYPE { get; set; }
+        public System.DateTime FCREATETIME { get; set; }
+        public long FFOLDERPATH { get; set; }
     }
 }

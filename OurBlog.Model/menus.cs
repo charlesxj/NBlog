@@ -12,11 +12,14 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userrole
+    public partial class menus
     {
-        public long FUSERID { get; set; }
-        public int FROLEID { get; set; }
-        public string FSTATUS { get; set; }
-        public string FDESCRIBE { get; set; }
+        public int FMENUID { get; set; }
+        public int FParentMenuId { get; set; }
+        public string FMENUNAME { get; set; }
+        public string FMENUTIPS { get; set; }
+        public string FMENUURL { get; set; }
+        public string FMENUSTATUS { get; set; }
+        public System.DateTime FCREATETIME { get; set; }
     }
 }

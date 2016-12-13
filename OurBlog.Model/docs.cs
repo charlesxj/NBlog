@@ -12,7 +12,7 @@ namespace OurBlog.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class doc
+    public partial class docs
     {
         public long FDocId { get; set; }
         public System.DateTime FDocCreateTime { get; set; }

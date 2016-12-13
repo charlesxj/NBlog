@@ -25,6 +25,23 @@
         <EntityTypeShape EntityType="blogModel.userrole" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.userselfsetting" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.userthirdnomap" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.discussinfos" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="blogModel.docclassts" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="blogModel.docclsrelations" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="blogModel.docclss" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="blogModel.dockeywords" Width="1.5" PointX="13.75" PointY="3.75" />
+        <EntityTypeShape EntityType="blogModel.docs" Width="1.5" PointX="13.75" PointY="6.75" />
+        <EntityTypeShape EntityType="blogModel.docstatinfos" Width="1.5" PointX="13.75" PointY="11.75" />
+        <EntityTypeShape EntityType="blogModel.docstores" Width="1.5" PointX="4.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.docwritetimeorders" Width="1.5" PointX="6.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.filemaps" Width="1.5" PointX="8.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.menus" Width="1.5" PointX="10.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.roleauthrights" Width="1.5" PointX="12.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.roles" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="blogModel.userroles" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="blogModel.users" Width="1.5" PointX="15.75" PointY="3.75" />
+        <EntityTypeShape EntityType="blogModel.userselfsettings" Width="1.5" PointX="15.75" PointY="8.75" />
+        <EntityTypeShape EntityType="blogModel.userthirdnomaps" Width="1.5" PointX="15.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -39,6 +39,18 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OurBlog_1025\OurBlog\packages\MySql.dll\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OurBlog_1025\OurBlog\packages\MySql.dll\v4.5\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OurBlog_1025\OurBlog\packages\MySql.dll\v4.5\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,6 +83,9 @@
     <Compile Include="discussinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="discussinfos.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="discussreplyinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
@@ -80,25 +95,52 @@
     <Compile Include="docclass.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="docclassts.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="doccls.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docclsrelation.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="docclsrelations.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="docclss.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="dockeyword.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dockeywords.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="docs.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docstatinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="docstatinfos.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="docstore.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="docstores.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docwritetimeorder.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="docwritetimeorders.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="filemap.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="filemaps.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="foldermap.cs">
@@ -110,11 +152,20 @@
     <Compile Include="menu.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="menus.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="role.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="roleauthright.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="roleauthrights.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="roles.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
@@ -123,10 +174,22 @@
     <Compile Include="userrole.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="userroles.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="userselfsetting.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
+    <Compile Include="userselfsettings.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
     <Compile Include="userthirdnomap.cs">
+      <DependentUpon>Blog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="userthirdnomaps.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
   </ItemGroup>
