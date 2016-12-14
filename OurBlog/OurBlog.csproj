@@ -930,23 +930,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OurBlog.Bll\OurBlog.Bll.csproj">
-      <Project>{d18e4748-18d3-4870-9254-37af3d9875ce}</Project>
+      <Project>{722d98a6-b362-4e07-b801-fba470de36c5}</Project>
       <Name>OurBlog.Bll</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurBlog.Dal\OurBlog.Dal.csproj">
-      <Project>{c40d7efe-31b4-4ca5-b213-0cfb28bdf582}</Project>
+      <Project>{fa1c94d3-2355-4591-9812-dbb4f7b43834}</Project>
       <Name>OurBlog.Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurBlog.Helper\OurBlog.Helper.csproj">
-      <Project>{e20dc4fd-a12c-4070-b762-b6a0539c477d}</Project>
+      <Project>{bcd38a27-1352-469c-ab01-cd17d5f33f78}</Project>
       <Name>OurBlog.Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurBlog.IBll\OurBlog.IBll.csproj">
-      <Project>{fe08d440-0635-422e-94bf-0340ebbbf23a}</Project>
+      <Project>{3a946887-92b9-4f22-9a66-8cd041acf403}</Project>
       <Name>OurBlog.IBll</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurBlog.IDal\OurBlog.IDal.csproj">
-      <Project>{61851c95-4503-4416-8261-cb63a1d32662}</Project>
+      <Project>{4e5ec42b-0710-42ff-8e19-ac6ab7c773c7}</Project>
       <Name>OurBlog.IDal</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurBlog.Model\OurBlog.Model.csproj">
