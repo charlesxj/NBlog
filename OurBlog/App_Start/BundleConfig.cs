@@ -20,8 +20,9 @@ namespace OurBlog
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
-                      "~/Scripts/jquery-easyui-1.4.5/jquery.min.js",
-                      "~/Scripts/jquery-easyui-1.4.5/jquery.easyui.min.js"));
+                      "~/Scripts/jquery-easyui-1.5.1/jquery.min.js",
+                      "~/Scripts/jquery-easyui-1.5.1/jquery.easyui.min.js", 
+                      "~/Scripts/jquery-easyui-1.5.1/easyloader.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/SelfDefineJS").Include(
                       "~/Scripts/self_scripts/SelfDefineJS.js"));
@@ -41,9 +42,8 @@ namespace OurBlog
             bundles.Add(new StyleBundle("~/Styles/bkhome").Include(
                      "~/Content/styles/bkHome.css"));
             bundles.Add(new StyleBundle("~/Styles/easyui").Include(
-                     "~/Scripts/jquery-easyui-1.4.5/themes/bootstrap/easyui.css",
-                     "~/Scripts/jquery-easyui-1.4.5/themes/icon.css",
-                     "~/Scripts/jquery-easyui-1.4.5/demo/demo.css"));
+                     "~/Scripts/jquery-easyui-1.5.1/themes/bootstrap/easyui.css",
+                     "~/Scripts/jquery-easyui-1.5.1/themes/icon.css"));
         }
     }
 }

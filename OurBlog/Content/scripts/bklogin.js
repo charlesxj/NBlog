@@ -18,9 +18,10 @@ function changeCheckCode() {
 }
 
 //异步请求成功之后，执行的代码。
-function afterLogin(data) {
-    alert(data);
-    window.location.href = "/BkHome/index";
+function afterLogin1(data) {
+    alert("a." + data)
+    //alert(data);
+    //window.location.href = "/BkHome/index";
     //if (data.result == "ok") {
     //    window.location.href = "/BkHome/index";
     //} else {
@@ -28,7 +29,7 @@ function afterLogin(data) {
     //        alert(data.info);
     //        changeCheckCode();
     //    } else {
-    //        //window.top.location.href = "/Error.html";
+    //        window.top.location.href = "/Error.html";
     //    }
 
     //}
@@ -39,7 +40,7 @@ $(function () {
         $.ajax({
             method: "post",
             cache: false,
-            url: "BkLogin/index",
+            url: "BkLogin/BkLogin",
             data: { LoginCode: $('#LoginCode').val(), LoginPwd: $('#LoginPwd').val(), vCode: $('#vCode').val() }
         }).done(function (data) {
             if (data.result == "ok") {

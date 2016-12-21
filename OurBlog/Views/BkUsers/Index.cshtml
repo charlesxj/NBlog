@@ -1,0 +1,230 @@
+﻿@model IEnumerable<OurBlog.Model.user>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户信息管理</title>
+    @*<link href="~/Scripts/jquery-easyui-1.4.5/themes/bootstrap/easyui.css" rel="stylesheet" />
+        <link href="~/Scripts/jquery-easyui-1.4.5/themes/icon.css" rel="stylesheet" />
+
+        <script src="~/Scripts/jquery-easyui-1.4.5/jquery.min.js"></script>
+        <script src="~/Scripts/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+        <script src="~/Scripts/jquery-easyui-1.4.5/easyloader.js"></script>*@
+
+    @Styles.Render("~/Styles/easyui")
+    @Scripts.Render("~/bundles/easyui")
+</head>
+<body>
+
+    <table id="dgUser" title="用户信息管理" class="easyui-datagrid" style="width: 98%; height: 620px;"
+           toolbar="#toolbar_User" pagination="true"
+           rownumbers="true" fitcolumns="true" singleselect="false">
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th data-options="field:'FUSERID'">用户ID</th>
+                <th data-options="field:'FUSERNO'">用户号</th>
+                <th field="FUSERNAME" width="40">用户名称</th>
+                <th field="FUSERNICKNAME" width="50">昵称</th>
+                <th data-options="field:'FUSERREGTIME',width:40,formatter:formatOptData">注册时间</th>
+                <th field="FUSERLEVEL" width="40">用户等级</th>
+                <th field="FUSERMOBILENO " width="40">移动手机</th>
+                <th field="FUSERWXID" width="30">微信</th>
+                <th field="FUSERSTATUS" width="40">状态</th>
+                <th field="FUSERMOBILENO " width="40">移动手机</th>
+                <th field="FUSERTELNO" width="30">座机号码</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar_User">
+        <div id="tb" style="padding: 2px 5px; font-size: 12px">
+            <form id="fmUser" method="post" novalidate style="margin-bottom: 0px; padding-bottom: 0px;">
+                <div class="fitem divCenter">
+                    <label>用户号:</label>
+                    <input name="txt_FUSERNO" id="txt_FUSERNO" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>用户名称:</label>
+                    <input name="txt_FUSERNAME" id="txt_FUSERNAME" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>昵称:</label>
+                    <input name="txt_FUSERNICKNAME" id="txt_FUSERNICKNAME" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>注册时间:</label>
+                    <input name="txt_FUSERREGTIME" id="txt_FUSERREGTIME" class="easyui-datebox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>用户等级:</label>
+                    <input name="txt_FUSERLEVEL" id="txt_FUSERLEVEL" class="easyui-textbox" data-options="width:100,height:30,validType:'checktare'" />
+                </div>
+            </form>
+            <div style="clear: both; margin: 10px auto; height: 15px; width: 300px; color: red;"><span>*表示必填</span><span id="divErrorInfo"></span></div>
+            <div style="margin: 0 auto; margin-bottom: 10px; width: 600px;">
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-search" onclick="searchInfo();">查询</a>
+                <a href="javascript:void(0)" style="width: 100px;" id="lblbtAdd" class="easyui-linkbutton" iconcls="icon-add" onclick="addInfo();">新增</a>
+                <a href="javascript:void(0)" style="width: 100px;" id="lblbtAdd" class="easyui-linkbutton" iconcls="icon-add" onclick="mdfInfo();">修改</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-remove" onclick="alert('will~')">禁用</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-ok" onclick="alert('will~')">啟用</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-clear01" onclick="rstall();">重置</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="win_user_add" class="easyui-window" title="新增用户" style="width:600px;height:400px"
+         data-options="iconCls:'icon-save',modal:true,closed:true,maximizable:false">
+        <form id="ff_add" method="post">
+            <div class="fitem divCenter">
+                <label>用户号:</label>
+                <input name="FUSERNO" id="txt_FUSERNO_a" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>用户名称:</label>
+                <input name="FUSERNAME" id="txt_FUSERNAME_a" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>昵称:</label>
+                <input name="FUSERNICKNAME" id="txt_FUSERNICKNAME_a" class="easyui-textbox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>注册时间:</label>
+                <input name="FUSERREGTIME" id="txt_FUSERREGTIME_a" class="easyui-datebox" data-options="width:100,height:30,validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>用户等级:</label>
+                <input name="FUSERLEVEL" id="txt_FUSERLEVEL_a" class="easyui-textbox" data-options="width:100,height:30,validType:'checktare'" />
+            </div>
+        </form>
+        <div style="text-align:center;padding:5px 0">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">重置</a>
+        </div>
+    </div>
+
+
+    <style type="text/css">
+        .panel {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .panel-title {
+            text-align: center;
+        }
+
+        .divCenter {
+            width: 340px;
+            margin: 0 auto;
+            float: left;
+        }
+
+            .divCenter label {
+                display: block;
+                float: left;
+                width: 100px;
+                text-align: right;
+                padding-top: 8px;
+                padding-right: 4px;
+            }
+
+            .divCenter span {
+                display: block;
+                float: left;
+                width: 200px;
+            }
+
+        .ftitle {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fitem {
+            margin-bottom: 5px;
+        }
+
+            .fitem label {
+                display: inline-block;
+                /*width: 80px;*/
+            }
+
+            .fitem input {
+                width: 160px;
+            }
+    </style>
+
+    <script>
+        function submitForm() {
+            $('#ff').form('submit', {
+                url: '../BkUsers/Create',
+                onSubmit: function (param) {
+                    //param.p1 = 'value1';
+                    //param.p2 = 'value2';
+                    // do some check
+                    // return false to prevent submit;
+                },
+                success: function (data) {
+                    var data = eval('(' + data + ')');  // change the JSON string to javascript object
+                    if (data.success) {
+                        alert(data.message)
+                    }
+                }
+            });
+        }
+        function clearForm() {
+            $('#ff').form('clear');
+        }
+
+        function rstall() {
+            $('#txt_FUSERNO').textbox('clear');
+            $('#txt_FUSERNAME').textbox('clear');
+            $('#txt_FUSERNICKNAME').textbox('clear');
+            $('#txt_FUSERREGTIME').datebox('clear');
+            $('#txt_FUSERLEVEL').textbox('clear');
+            $("#dgUser").datagrid('loadData', { total: 0, rows: [] });//删除datagrid数据
+        }
+
+        function formatOptData(val, row) {
+            val = val.length == 20 ? val.replace("/Date(", "").replace(")/", "") / 1000 : val.replace("/Date(", "").replace(")/", "");
+
+            var mydata = new Date();
+            var fmData = mydata.getFullYear() + "/" + (mydata.getMonth() + 1) + "/" + (mydata.getDate());
+            return fmData;
+        }
+
+        $('#dgUser').datagrid({
+            loadFilter: function (data) {
+                if (data.IsOkFlag || data.IsOkFlag == undefined) {
+                    return data;
+                } else {
+                    $.messager.alert('加载失败', data.ReturnDataObj, 'error')
+                    data.rows = [];
+                    return data;
+                }
+            }
+        });
+
+        function searchInfo() {
+            var usr_no = $('#txt_FUSERNO').textbox('getValue');
+            var user_name = $('#txt_FUSERNAME').textbox('getValue');
+            var nick_name = $('#txt_FUSERNICKNAME').textbox('getValue');
+            var rgt_time = $('#txt_FUSERREGTIME').datebox('getValue');
+            var usr_level = $('#txt_FUSERLEVEL').textbox('getValue');
+            $('#dgUser').datagrid('reload', '../BkUsers/GetList?usr_no=' + usr_no + '&user_name=' + user_name + '&nick_name=' + nick_name + '&rgt_time=' + rgt_time + '&usr_level=' + usr_level);
+        };
+
+        function addInfo() {
+            $('#win_user_add').window("open");
+        }
+    </script>
+</body>
+</html>
