@@ -1,0 +1,302 @@
+﻿@model IEnumerable<OurBlog.Model.user>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户信息管理</title>
+    @*<link href="~/Scripts/jquery-easyui-1.5.1/themes/bootstrap/easyui.css" rel="stylesheet" />
+            <link href="~/Scripts/jquery-easyui-1.5.1/themes/icon.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-easyui-1.5.1/jquery.min.js"></script>
+            <script src="~/Scripts/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+            <script src="~/Scripts/jquery-easyui-1.5.1/easyloader.js"></script>
+        <script src="~/Scripts/jquery-easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>*@
+    @Styles.Render("~/Styles/easyui")
+    @Scripts.Render("~/bundles/easyui")
+    @*<script src="~/Content/scripts/JsHelper.js"></script>*@
+</head>
+<body>
+
+    <table id="dgUser" title="用户信息管理" class="easyui-datagrid" style="width: 98%; height: 620px;"
+           toolbar="#toolbar_User" pagination="true"
+           rownumbers="true" fitcolumns="true" singleselect="false">
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true"></th>
+                <th data-options="field:'FUSERID'">用户ID</th>
+                <th data-options="field:'FUSERNO'">用户号</th>
+                <th field="FUSERNAME" width="40">用户名称</th>
+                <th field="FUSERNICKNAME" width="50">昵称</th>
+                <th data-options="field:'FUSERREGTIME',width:40,formatter:formatOptData">注册时间</th>
+                <th field="FUSERLEVEL" width="40">用户等级</th>
+                <th field="FUSERWXID" width="30">微信</th>
+                <th field="FUSERMAIL" width="40">邮箱</th>
+                <th field="FUSERSTATUS" width="40">状态</th>
+                <th field="FUSERMOBILENO" width="40">移动手机</th>
+                <th field="FUSERTELNO" width="30">座机号码</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar_User">
+        <div id="tb" style="padding: 2px 5px; font-size: 12px">
+            <form id="fmUser" method="post" novalidate style="margin-bottom: 0px; padding-bottom: 0px;">
+                <div class="fitem divCenter">
+                    <label>用户号:</label>
+                    <input name="txt_FUSERNO" id="txt_FUSERNO" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>用户名称:</label>
+                    <input name="txt_FUSERNAME" id="txt_FUSERNAME" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>昵称:</label>
+                    <input name="txt_FUSERNICKNAME" id="txt_FUSERNICKNAME" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter" style="z-index:55555;">
+                    <label>注册时间:</label>
+                    <input name="txt_FUSERREGTIME" id="txt_FUSERREGTIME" class="easyui-datebox" data-options="validType:'compare[\'#tb\',0]'">
+                </div>
+                <div class="fitem divCenter">
+                    <label>用户等级:</label>
+                    <input name="txt_FUSERLEVEL" id="txt_FUSERLEVEL" class="easyui-textbox" data-options="validType:'checktare'" />
+                </div>
+            </form>
+            <div style="clear: both; margin: 10px auto; height: 15px; width: 300px; color: red;"><span>*表示必填</span><span id="divErrorInfo"></span></div>
+            <div style="margin: 0 auto; margin-bottom: 10px; width: 600px;">
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-search" onclick="searchInfo();">查询</a>
+                <a href="javascript:void(0)" style="width: 100px;" id="lblbtAdd" class="easyui-linkbutton" iconcls="icon-add" onclick="addInfo();">新增</a>
+                <a href="javascript:void(0)" style="width: 100px;" id="lblbtAdd" class="easyui-linkbutton" iconcls="icon-add" onclick="mdfInfo();">修改</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-remove" onclick="optUser(1);">禁用</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-ok" onclick="optUser(2);">啟用</a>
+                <a href="javascript:void(0)" style="margin-left: 10px; width: 100px;" class="easyui-linkbutton" iconcls="icon-clear01" onclick="rstall();">重置</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="win_user_add" class="easyui-window" title="新增用户" style="width:600px;height:460px"
+         data-options="iconCls:'icon-save',modal:true,closed:true,maximizable:false">
+        <form id="ff_add" method="post" style="align-content:center;" data-options="novalidate:true">
+            <input type="hidden" name="FUSERID" id="txt_FUSERID_a" value="" />
+            <div class="fitem divCenter">
+                <label>用户号:</label>
+                <input name="FUSERNO" id="txt_FUSERNO_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]',required:true">
+            </div>
+            <div class="fitem divCenter">
+                <label>初始密码:</label>
+                <input name="FPASSWORD" id="txt_FPASSWORD_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]',required:true">
+            </div>
+            <div class="fitem divCenter">
+                <label>用户名称:</label>
+                <input name="FUSERNAME" id="txt_FUSERNAME_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>昵称:</label>
+                <input name="FUSERNICKNAME" id="txt_FUSERNICKNAME_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>用户等级:</label>
+                <input name="FUSERLEVEL" id="txt_FUSERLEVEL_a" class="easyui-textbox" data-options="validType:'checktare'" />
+            </div>
+            <div class="fitem divCenter">
+                <label>生日:</label>
+                <input name="FUSERBIRTHDAY" id="txt_FUSERBIRTHDAY_a" class="easyui-datebox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>邮箱:</label>
+                <input name="FUSERMAIL" id="txt_FUSERMAIL_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>手机号:</label>
+                <input name="FUSERMOBILENO" id="txt_FUSERMOBILENO_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>座机号:</label>
+                <input name="FUSERTELNO" id="txt_FUSERTELNO_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>QQ号:</label>
+                <input name="FUSERQQNO" id="txt_FUSERQQNO_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+            <div class="fitem divCenter">
+                <label>微信号:</label>
+                <input name="FUSERWXID" id="txt_FUSERWXID_a" class="easyui-textbox" data-options="validType:'compare[\'#tb\',0]'">
+            </div>
+
+
+        </form>
+        <div style="text-align:center;padding:5px 0;clear:both;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">重置</a>
+        </div>
+    </div>
+
+
+    <style type="text/css">
+        .panel {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .panel-title {
+            text-align: center;
+        }
+
+        .divCenter {
+            width: 100%;
+            margin: 0 auto;
+            float: left;
+        }
+
+            .divCenter label {
+                display: block;
+                float: left;
+                width: 100px;
+                text-align: right;
+                padding-top: 8px;
+                padding-right: 4px;
+            }
+
+        .ftitle {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fitem {
+            margin-bottom: 5px;
+        }
+
+            .fitem label {
+                display: inline-block;
+                /*width: 80px;*/
+            }
+
+            .fitem input {
+                width: 360px;
+            }
+    </style>
+
+    <script>
+        function submitForm() {
+            $('#ff_add').form('submit', {
+                url: '../BkUsers/CreateOrEdit',
+                onSubmit: function (param) {
+                    if ($('#txt_FUSERID_a').length < 1) {
+                        param.FUSERREGTIME = Date.now();//如果是编辑，则这个FUSERID栏位是有值得
+                    }
+                    return $(this).form('enableValidation').form('validate');
+                }
+            });
+        }
+        $(function () {
+            $('#ff_add').form({
+                success: function (data) {
+                    try {
+                        var data = eval('(' + data + ')');  // change the JSON string to javascript object
+                        $.messager.alert('操作提示', data.message, 'info');
+                    } catch (e) {
+                        $.messager.alert('操作提示', data, 'info');
+                    }
+                }
+            });
+        });
+        function clearForm() {
+            $('#ff_add').form('clear');
+        }
+
+        function rstall() {
+            $('#txt_FUSERNO').textbox('clear');
+            $('#txt_FUSERNAME').textbox('clear');
+            $('#txt_FUSERNICKNAME').textbox('clear');
+            $('#txt_FUSERREGTIME').datebox('clear');
+            $('#txt_FUSERLEVEL').textbox('clear');
+            $("#dgUser").datagrid('loadData', { total: 0, rows: [] });//删除datagrid数据
+        }
+
+        function formatOptData(val, row) {
+            val = val.length == 21 ? val.replace("/Date(", "").replace(")/", "") : val.replace("/Date(", "").replace(")/", "") * 1000;
+            var mydata = new Date(parseInt(val));
+            var fmData = mydata.getFullYear() + "/" + (mydata.getMonth() + 1) + "/" + (mydata.getDate());
+            return fmData;
+        }
+
+        $('#dgUser').datagrid({
+            loadFilter: function (data) {
+                if (data.IsOkFlag || data.IsOkFlag == undefined) {
+                    return data;
+                } else {
+                    $.messager.alert('加载失败', data.ReturnDataObj, 'error')
+                    data.rows = [];
+                    return data;
+                }
+            }
+        });
+
+        function searchInfo() {
+            var usr_no = $('#txt_FUSERNO').textbox('getValue');
+            var user_name = $('#txt_FUSERNAME').textbox('getValue');
+            var nick_name = $('#txt_FUSERNICKNAME').textbox('getValue');
+            var rgt_time = $('#txt_FUSERREGTIME').datebox('getValue');
+            var usr_level = $('#txt_FUSERLEVEL').textbox('getValue');
+            $('#dgUser').datagrid('reload', '../BkUsers/GetList?usr_no=' + usr_no + '&user_name=' + user_name + '&nick_name=' + nick_name + '&rgt_time=' + rgt_time + '&usr_level=' + usr_level);
+        };
+
+        function addInfo() {
+            $('#win_user_add').window("open");
+            $('#ff_add').form('clear');
+        }
+
+        function mdfInfo() {
+            var selects = $('#dgUser').datagrid('getSelections');
+            if (selects.length == 0) {
+                $.messager.alert('操作提示', '请选择记录后才能操作', 'info');
+                return false;
+            }
+            if (selects.length > 1) {
+                $.messager.alert('操作提示', '操作只能选择一条记录！', 'info');
+                return false;
+            }
+
+            $('#win_user_add').window("open");
+            $('#ff_add').form('clear');
+            $('#ff_add').form('load', selects[0]);
+            $('#txt_FUSERID_a').val(selects[0].FUSERID);
+        }
+
+        function optUser() {
+            var selects = $('#dgUser').datagrid('getSelections');
+            if (selects.length == 0) {
+                $.messager.alert('操作提示', '请选择记录后才能操作', 'info');
+                return false;
+            }
+
+            $.ajax({
+                url: '../BkUsers/CreateOrEdit',
+                type: 'post',
+                data: {
+                    users: JSON.stringify(selects),
+                    flag: 'opt'
+                },
+                datatype: 'json'
+            }).done(function (data, textStatus, jqXHR) {
+                try {
+                    var data = eval('(' + data + ')');  // change the JSON string to javascript object
+                    $.messager.alert('操作提示', data.message, 'info');
+                    $('#dgUser').datagrid('reload');
+                } catch (e) {
+                    $.messager.alert('操作提示', data, 'info');
+                }
+            });
+
+        }
+
+    </script>
+</body>
+</html>

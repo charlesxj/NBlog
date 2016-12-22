@@ -10,10 +10,11 @@
     <meta name="viewport" content="width=device-width" />
 
     <title>欢迎回来</title>
-    @Styles.Render("~/Styles/bkhome", 
-                   "~/Styles/easyui")
+    @Styles.Render("~/Styles/easyui",
+                   "~/Styles/bkhome")
     @Scripts.Render("~/bundles/easyui",
-                    "~/bundles/SelfDefineJS")
+                    "~/bundles/SelfDefineJS",
+                    "~/bundles/bkhome")
 
 </head>
 <body>
@@ -41,7 +42,7 @@
                     <div class="easyui-accordion" data-options="fit:false,border:false">
                         <div title="系统设置" data-options="selected:true" style="padding: 10px;">
                             <ul class="ulStyle">
-                                <li><a href="javascript:void();" onclick="InfoMgList('登录用户管理', '#')">登录用户管理</a></li>
+                                <li><a href="javascript:void();" onclick="InfoMgList('登录用户管理', '../BkUsers/Index')">登录用户管理</a></li>
                                 <li><a href="javascript:void();" onclick="InfoMgList('基础信息管理', '#')">基础信息管理</a></li>
                                 <li><a href="javascript:void();">菜单管理</a></li>
                                 <li><a href="javascript:void();">权限管理(预留)</a></li>

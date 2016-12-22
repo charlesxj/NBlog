@@ -4,6 +4,7 @@ using OurBlog.Model;
 using OurBlog.IBll;
 using OurBlog.IDal;
 using Microsoft.Practices.Unity.Utility;
+using System.Linq.Expressions;
 
 namespace OurBlog.Bll
 {
@@ -19,7 +20,6 @@ namespace OurBlog.Bll
 
         public user GetUsers(string FUSERNO)
         {
-            Guard.ArgumentNotNullOrEmpty(FUSERNO, "FUSERNO");
             return this.UserRepository.GetUsers(FUSERNO);
         }
 
@@ -30,9 +30,34 @@ namespace OurBlog.Bll
 
         public IEnumerable<user> GetLoginUsers(string loginname, string loginpwd)
         {
-            Guard.ArgumentNotNullOrEmpty(loginname, "loginname");
-            Guard.ArgumentNotNullOrEmpty(loginpwd, "loginpwd");
             return this.UserRepository.GetLoginUsers(loginname, loginpwd);
         }
+
+        public IEnumerable<user> GetUsersByFilter<TOderKey>(Expression<Func<user, bool>> filter, int pageIndex, int pageSize, Expression<Func<user, TOderKey>> sortKeySelector, out int recordCount, bool isAsc = true)
+        {
+            return this.UserRepository.GetUsersByFilter(filter, pageIndex, pageSize, sortKeySelector, out recordCount, isAsc);
+        }
+
+        public int AddUser(user instance)
+        {
+            return this.UserRepository.AddUser(instance);
+        }
+
+        public int EditUser(user instance)
+        {
+            return this.UserRepository.EditUser(instance);
+        }
+
+        /// <summary>
+        /// 更加条件刷选数据
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="recordCount"></param>
+        /// <returns></returns>
+        //public IEnumerable<user> GetUsers(int pageIndex, int pageSize, out int recordCount)
+        //{
+        //    return this.UserRepository.GetUsers(pageIndex, pageSize, out recordCount);
+        //}
     }
 }

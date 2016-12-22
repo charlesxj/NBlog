@@ -83,9 +83,6 @@
     <Compile Include="discussinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="discussinfos.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="discussreplyinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
@@ -95,52 +92,25 @@
     <Compile Include="docclass.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="docclassts.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="doccls.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docclsrelation.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="docclsrelations.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="docclss.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="dockeyword.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dockeywords.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="docs.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docstatinfo.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="docstatinfos.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="docstore.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="docstores.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="docwritetimeorder.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="docwritetimeorders.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="filemap.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="filemaps.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="foldermap.cs">
@@ -152,20 +122,11 @@
     <Compile Include="menu.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="menus.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="role.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="roleauthright.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="roleauthrights.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="roles.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
@@ -174,52 +135,38 @@
     <Compile Include="userrole.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="userroles.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="users.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
     <Compile Include="userselfsetting.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userselfsettings.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
     <Compile Include="userthirdnomap.cs">
       <DependentUpon>Blog.tt</DependentUpon>
     </Compile>
-    <Compile Include="userthirdnomaps.cs">
-      <DependentUpon>Blog.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Blog.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Blog.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Blog.edmx.diagram">
       <DependentUpon>Blog.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Blog.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Blog.Context.cs</LastGenOutput>
       <DependentUpon>Blog.edmx</DependentUpon>
+      <LastGenOutput>Blog.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Blog.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Blog.edmx</DependentUpon>
       <LastGenOutput>Blog.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="813d76123c734290b9184be9bb1d0646" Name="Diagram1">
+      <Diagram DiagramId="1378409dfafc49f9a9866d26372c1a2d" Name="Diagram1">
         <EntityTypeShape EntityType="blogModel.discussinfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.discussreplyinfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.doc" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -14,34 +14,17 @@
         <EntityTypeShape EntityType="blogModel.dockeyword" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.docstatinfo" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.docstore" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.docwritetimeorder" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.filemap" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.foldermap" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.folderrelationmap" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.docwritetimeorder" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.filemap" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.foldermap" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.folderrelationmap" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.menu" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.role" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.roleauthright" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.user" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.userrole" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.userselfsetting" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.userrole" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogModel.userselfsetting" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="blogModel.userthirdnomap" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="blogModel.discussinfos" Width="1.5" PointX="11.75" PointY="11.75" />
-        <EntityTypeShape EntityType="blogModel.docclassts" Width="1.5" PointX="13.75" PointY="0.75" />
-        <EntityTypeShape EntityType="blogModel.docclsrelations" Width="1.5" PointX="0.75" PointY="13.75" />
-        <EntityTypeShape EntityType="blogModel.docclss" Width="1.5" PointX="2.75" PointY="13.75" />
-        <EntityTypeShape EntityType="blogModel.dockeywords" Width="1.5" PointX="13.75" PointY="3.75" />
-        <EntityTypeShape EntityType="blogModel.docs" Width="1.5" PointX="13.75" PointY="6.75" />
-        <EntityTypeShape EntityType="blogModel.docstatinfos" Width="1.5" PointX="13.75" PointY="11.75" />
-        <EntityTypeShape EntityType="blogModel.docstores" Width="1.5" PointX="4.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.docwritetimeorders" Width="1.5" PointX="6.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.filemaps" Width="1.5" PointX="8.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.menus" Width="1.5" PointX="10.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.roleauthrights" Width="1.5" PointX="12.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.roles" Width="1.5" PointX="14.75" PointY="14.75" />
-        <EntityTypeShape EntityType="blogModel.userroles" Width="1.5" PointX="15.75" PointY="0.75" />
-        <EntityTypeShape EntityType="blogModel.users" Width="1.5" PointX="15.75" PointY="3.75" />
-        <EntityTypeShape EntityType="blogModel.userselfsettings" Width="1.5" PointX="15.75" PointY="8.75" />
-        <EntityTypeShape EntityType="blogModel.userthirdnomaps" Width="1.5" PointX="15.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
